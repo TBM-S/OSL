@@ -1,53 +1,14 @@
-#!/bin/bash 
-# Simple Calculator using Bash Script 
- 
-echo "===== Simple Calculator =====" 
-echo "" 
- 
-# Input first number 
-echo "Enter first number:" 
-read num1 
- 
-# Input operator 
-echo "Enter operator (+, -, *, /):" 
-read op 
- 
-# Input second number 
-echo "Enter second number:" 
-read num2 
- 
-# Perform calculation based on operator 
-case $op in 
-    +) 
-        result=$(echo "$num1 + $num2" | bc) 
-        echo "" 
-        echo "Result: $num1 + $num2 = $result" 
-        ;; 
-    -) 
-        result=$(echo "$num1 - $num2" | bc) 
-        echo "" 
-        echo "Result: $num1 - $num2 = $result" 
-        ;; 
-    \*) 
-        result=$(echo "$num1 * $num2" | bc) 
-        echo "" 
-        echo "Result: $num1 * $num2 = $result" 
-        ;; 
-    /) 
-        if [ $num2 -eq 0 ]; then 
-            echo "" 
-            echo "Error: Division by zero!" 
-        else 
-            result=$(echo "scale=2; $num1 / $num2" | bc) 
-            echo "" 
-            echo "Result: $num1 / $num2 = $result" 
-        fi 
-        ;; 
-    *) 
-        echo "" 
-        echo "Error: Invalid operator! Please use +, -, *, or /" 
-        ;; 
-esac 
- 
-echo "" 
-echo "============================="
+#!/bin/bash
+read -p "Enter first number: " num1
+read -p "Enter operator (+, -, *, /): " op
+read -p "Enter second number: " num2
+
+case $op in
+    +) echo "Result: $num1 + $num2 = $(echo "$num1 + $num2" | bc)" ;;
+    -) echo "Result: $num1 - $num2 = $(echo "$num1 - $num2" | bc)" ;;
+    \*) echo "Result: $num1 * $num2 = $(echo "$num1 * $num2" | bc)" ;;
+    /)
+        [ "$num2" -eq 0 ] && echo "Error: Division by zero!" || echo "Result: $num1 / $num2 = $(echo "scale=2; $num1 / $num2" | bc)"
+        ;;
+    *) echo "Error: Invalid operator!" ;;
+esac
